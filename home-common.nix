@@ -10,6 +10,7 @@
     tmux
     vim
     whois
+    git
 
     aws
     ruby
