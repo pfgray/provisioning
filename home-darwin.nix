@@ -1,3 +1,3 @@
-{pkgs, ...} @input:
+{pkgs, ...} @ input:
 
 (import ./home-common.nix input)
