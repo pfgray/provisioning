@@ -62,9 +62,10 @@ function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
   set -x color_desk                     $blue $grey --bold
 end
 
-function foobar
-  echo 'foobar'
-end
+
+set -x KUBECONFIG "$KUBECONFIG:$HOME/.kube/config"
+
+kubectl completion fish | source
 
 # Nix
 # if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'

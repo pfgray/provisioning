@@ -14,7 +14,6 @@
 
     aws
     ruby
-    docker
     kubernetes
     postgresql
     httpie
