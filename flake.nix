@@ -25,7 +25,7 @@
         };
 
         "darwin-nicole-m1" = homeManager.lib.homeManagerConfiguration {
-          configuration = import ./home-darwin.nix { pkgs = nixpkgs; };
+          configuration = import ./home-darwin.nix;
           inherit stateVersion;
 
           system = "aarch64-darwin";
@@ -35,7 +35,7 @@
 
 
         "darwin-work" = homeManager.lib.homeManagerConfiguration {
-          configuration = import ./home-darwin.nix { pkgs = nixpkgs; };
+          configuration = import ./home-darwin.nix;
           inherit stateVersion;
 
           system = "x86_64-darwin";

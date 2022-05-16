@@ -1,7 +1,9 @@
 {pkgs, ...} @ input:
 
 {
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config.allowUnfreePredicate = (pkg: true);
   home.packages = with pkgs; [
     curl
     wget
@@ -11,12 +13,12 @@
     vim
     whois
     git
+    vscode
 
     aws
     ruby
     kubernetes
     postgresql
-    httpie
     ripgrep
   ];
 
