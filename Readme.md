@@ -1,16 +1,39 @@
 
+Use this flake to pull in common provisioning configs.
+Define a flake locally which looks like:
 
-To provision the environment, run:
+```
+{
+  inputs = {
+    provisioning.url = "github:pfgray/provisioning";
+  };
 
-```sh
-nix run --impure github:nix-community/home-manager#home-manager \
-  --no-write-lock-file -- switch --flake "github:pfgray/provisioning#<config-key>"
+  outputs = { provisioning, ... }:
+    provisioning.provision {
+      systemConfig = {
+        system = "x86_64-linux";
+        username = "paul";
+        homeDirectory = "/home/paul";
+      };
+      overrides = {};
+    };
+}
 ```
 
+Providing your `system`, `username`, `homeDirectory`. `overrides` wil be recursively merged with the default config, so you can use it to tweak the configs.
 
-Or, you can clone locally & make changes, and then run:
+To provision an environment, run:
+
+For Linux:
 
 ```sh
 nix run --impure github:nix-community/home-manager#home-manager \
-  --no-write-lock-file -- switch --flake ".#<config-key>"
+  --no-write-lock-file -- switch --flake ".#linux"
+```
+
+For MacOS:
+
+```sh
+nix run --impure github:nix-community/home-manager#home-manager \
+  --no-write-lock-file -- switch --flake ".#darwin"
 ```

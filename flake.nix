@@ -9,38 +9,35 @@
     };
   };
 
-  outputs = { nixpkgs, homeManager, ... } @ inputs: 
+  outputs = { nixpkgs, homeManager, ... } @ input: 
     let
+      recursiveMerge = import ./recursiveMerge.nix nixpkgs;
       stateVersion = "21.11";
     in {
-    
-      homeConfigurations = {
-        "linux-personal" = homeManager.lib.homeManagerConfiguration {
-          configuration = import ./home-linux.nix;
+      provision = {systemConfig, overrides} @ configs: {
 
-          inherit stateVersion;
-          system = "x86_64-linux";
-          username = "paul";
-          homeDirectory = "/home/paul";
-        };
+        homeConfigurations = {
+          "linux" = homeManager.lib.homeManagerConfiguration {
+            configuration = {pkgs, lib, ...} @ configInput:
+              recursiveMerge [
+                (import ./home-linux.nix configInput)
+                overrides 
+              ];
 
-        "darwin-nicole-m1" = homeManager.lib.homeManagerConfiguration {
-          configuration = import ./home-darwin.nix;
-          inherit stateVersion;
+            inherit stateVersion;
+            inherit (systemConfig) system username homeDirectory;
+          };
 
-          system = "aarch64-darwin";
-          username = "nicole";
-          homeDirectory = "/Users/nicole";
-        };
+          "darwin" = homeManager.lib.homeManagerConfiguration {
+            configuration = {pkgs, lib, ...} @ configInput:
+              recursiveMerge [
+                (import ./home-darwin.nix configInput)
+                overrides 
+              ];
 
-
-        "darwin-work" = homeManager.lib.homeManagerConfiguration {
-          configuration = import ./home-darwin.nix;
-          inherit stateVersion;
-
-          system = "x86_64-darwin";
-          username = "paul.gray";
-          homeDirectory = "/Users/paul.gray";
+            inherit stateVersion;
+            inherit (systemConfig) system username homeDirectory;
+          };
         };
       };
     };

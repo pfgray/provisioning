@@ -1,4 +1,4 @@
-{pkgs, ...} @ input:
+{pkgs, lib, ...} @ input:
 
 let
   recursiveMerge = import ./recursiveMerge.nix input;

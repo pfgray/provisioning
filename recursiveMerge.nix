@@ -66,7 +66,6 @@ recursiveMerge = attrList:
     );
   in f [] attrList;
 
-
 in
 
 recursiveMerge
