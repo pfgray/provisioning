@@ -18,22 +18,20 @@
 
         homeConfigurations = {
           "linux" = homeManager.lib.homeManagerConfiguration {
-            configuration = {pkgs, lib, ...} @ configInput:
-              recursiveMerge [
-                (import ./home-linux.nix configInput)
-                overrides 
-              ];
+            configuration.imports = [
+              (import ./home-linux)
+              overrides
+            ];
 
             inherit stateVersion;
             inherit (systemConfig) system username homeDirectory;
           };
 
           "darwin" = homeManager.lib.homeManagerConfiguration {
-            configuration = {pkgs, lib, ...} @ configInput:
-              recursiveMerge [
-                (import ./home-darwin.nix configInput)
-                overrides 
-              ];
+            configuration.imports = [
+              (import ./home-darwin)
+              overrides
+            ];
 
             inherit stateVersion;
             inherit (systemConfig) system username homeDirectory;
