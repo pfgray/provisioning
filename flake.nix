@@ -19,7 +19,7 @@
         homeConfigurations = {
           "linux" = homeManager.lib.homeManagerConfiguration {
             configuration.imports = [
-              (import ./home-linux)
+              ./home-linux.nix
               overrides
             ];
 
@@ -29,7 +29,7 @@
 
           "darwin" = homeManager.lib.homeManagerConfiguration {
             configuration.imports = [
-              (import ./home-darwin)
+              ./home-darwin.nix
               overrides
             ];
 
