@@ -13,29 +13,36 @@
     let
       recursiveMerge = import ./recursiveMerge.nix nixpkgs;
       stateVersion = "21.11";
+      local = import ./local.nix;
     in {
-      provision = {systemConfig, overrides} @ configs: {
+      homeConfigurations = {
+        "basic" = homeManager.lib.homeManagerConfiguration {
+          configuration.imports = [
+            ./home-splice-module.nix
+          ];
 
-        homeConfigurations = {
-          "linux" = homeManager.lib.homeManagerConfiguration {
-            configuration.imports = [
-              ./home-linux.nix
-              overrides
-            ];
+          inherit stateVersion;
+          inherit (local.systemConfig) system username homeDirectory;
+        };
 
-            inherit stateVersion;
-            inherit (systemConfig) system username homeDirectory;
-          };
+        "linux" = homeManager.lib.homeManagerConfiguration {
+          configuration.imports = [
+            ./home-linux.nix
+            local.overrides
+          ];
 
-          "darwin" = homeManager.lib.homeManagerConfiguration {
-            configuration.imports = [
-              ./home-darwin.nix
-              overrides
-            ];
+          inherit stateVersion;
+          inherit (local.systemConfig) system username homeDirectory;
+        };
 
-            inherit stateVersion;
-            inherit (systemConfig) system username homeDirectory;
-          };
+        "darwin" = homeManager.lib.homeManagerConfiguration {
+          configuration.imports = [
+            ./home-darwin.nix
+            local.overrides
+          ];
+
+          inherit stateVersion;
+          inherit (local.systemConfig) system username homeDirectory;
         };
       };
     };

@@ -13,21 +13,36 @@ in
         wget
         jq
         nodejs
+        yarn
         tmux
         vim
         whois
         git
         gnupg
-
+        nodePackages.ts-node
+        jwt-cli
         aws
         ruby
+        rubocop
         kubectl
         postgresql
         ripgrep
+        dhall
+        dhall-json
+        lsd
+        bat
+        gopass
+        jdk8
+        graphviz
+        # mutagen
       ];
 
       programs = {
         home-manager.enable = true;
+        java = {
+          enable = true;
+          package = pkgs.jdk8;
+        };
       };
     }
 

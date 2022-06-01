@@ -62,10 +62,15 @@ function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
   set -x color_desk                     $blue $grey --bold
 end
 
+function jwtFromClipboard
+  pbpaste | jwt decode -j - | jq
+end
 
 set -x KUBECONFIG "$KUBECONFIG:$HOME/.kube/config"
 
 kubectl completion fish | source
+
+set -gx PATH $PATH /Users/paul.gray/.gem/ruby/2.7.0/bin/bin
 
 # Nix
 # if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
