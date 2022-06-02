@@ -6,7 +6,6 @@
       package = pkgs.vscode;
       extensions = with pkgs.vscode-extensions; [
         justusadam.language-haskell
-        scalameta.metals
         silvenon.mdx
         esbenp.prettier-vscode
         ms-azuretools.vscode-docker

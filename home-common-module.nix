@@ -8,14 +8,11 @@
         curl
         wget
         jq
-        nodejs
-        yarn
         tmux
         vim
         whois
         git
         gnupg
-        nodePackages.ts-node
         jwt-cli
         aws
         kubectl
@@ -26,7 +23,6 @@
         lsd
         bat
         gopass
-        scala
         jdk8
         graphviz
         # mutagen

@@ -39,7 +39,6 @@ let
       };
     };
 in {
-
   home.packages = with pkgs; [
       pkgs.ruby
       rubocop
