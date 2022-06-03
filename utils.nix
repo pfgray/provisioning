@@ -2,7 +2,6 @@
 
 {
     # nixpkgs.config.allowUnfree = true;
-
     nixpkgs.config.allowUnfreePredicate = (pkg: true);
     home.packages = with pkgs; [
         curl
@@ -18,21 +17,14 @@
         kubectl
         postgresql
         ripgrep
-        dhall
-        dhall-json
         lsd
         bat
         gopass
-        jdk8
         graphviz
         # mutagen
     ];
 
     programs = {
         home-manager.enable = true;
-        java = {
-            enable = true;
-            package = pkgs.jdk8;
-        };
     };
 }

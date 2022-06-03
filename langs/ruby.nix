@@ -38,18 +38,35 @@ let
         sha256 = "sha256-KWDQCd0hcTKu5AUOK3ZfjWpL71LXJkt5SdWp6M7nBM4=";
       };
     };
+  
+  # This depends on htmlbeautifier
+  vscode-erb-beautify = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+      mktplcRef = {
+        name = "vscode-erb-beautify";
+        publisher = "aliariff";
+        version = "0.3.5";
+        sha256 = "sha256-kAdS+SFJfFzb/2Umpd1DYlIk5jH9ZoNwpVBUbpN6d/M=";
+      };
+    };
+
+  htmlbeautifier = import ../tools/htmlbeautifier pkgs;
+
 in {
   home.packages = with pkgs; [
-      pkgs.ruby
-      rubocop
+    pkgs.ruby
+    rubocop
+    htmlbeautifier
   ];
 
   programs.vscode = {
     extensions = with pkgs.vscode-extensions; [
-      ruby
+      # This extension tries to modify it's 
+      # extension directory
+      # ruby
       ruby-rubocop
       rails
       vscode-gemfile
+      vscode-erb-beautify
     ];
   };
 }

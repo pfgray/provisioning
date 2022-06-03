@@ -3,13 +3,12 @@
 {
   programs.vscode = {
     extensions = with pkgs.vscode-extensions; [
-      esbenp.prettier-vscode
+      dhall.vscode-dhall-lsp-server
     ];
   };
 
   home.packages = with pkgs; [
-    nodePackages.ts-node
-    nodejs
-    yarn
+    dhall
+    dhall-json
   ];
 }

@@ -1,5 +1,11 @@
 
+if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+end
 
+if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+  fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+end
 
 set -x fish_color_normal '#feffff' # the default color
 set -x fish_color_command '#8bada8' # the color for commands
@@ -70,7 +76,7 @@ set -x KUBECONFIG "$KUBECONFIG:$HOME/.kube/config"
 
 kubectl completion fish | source
 
-set -gx PATH $PATH /Users/paul.gray/.gem/ruby/2.7.0/bin/bin
+set -gx PATH $PATH (ruby -e 'print Gem.user_dir')/bin
 
 # Nix
 # if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'

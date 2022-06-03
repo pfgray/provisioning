@@ -9,25 +9,17 @@
     };
   };
 
-  outputs = { nixpkgs, homeManager, ... } @ input: 
+  outputs = { nixpkgs, homeManager, ... }: 
     let
-      recursiveMerge = import ./recursiveMerge.nix nixpkgs;
       stateVersion = "21.11";
       local = import ./local.nix;
     in {
       homeConfigurations = {
-        "basic" = homeManager.lib.homeManagerConfiguration {
-          configuration.imports = [
-            ./home-splice-module.nix
-          ];
-
-          inherit stateVersion;
-          inherit (local.systemConfig) system username homeDirectory;
-        };
 
         "linux" = homeManager.lib.homeManagerConfiguration {
           configuration.imports = [
             ./home-linux.nix
+            ./home-common.nix
             local.overrides
           ];
 
@@ -38,6 +30,7 @@
         "darwin" = homeManager.lib.homeManagerConfiguration {
           configuration.imports = [
             ./home-darwin.nix
+            ./home-common.nix
             local.overrides
           ];
 
