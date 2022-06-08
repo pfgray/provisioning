@@ -52,21 +52,23 @@ let
   htmlbeautifier = import ../tools/htmlbeautifier pkgs;
 
 in {
-  home.packages = with pkgs; [
-    pkgs.ruby
-    rubocop
-    htmlbeautifier
-  ];
-
-  programs.vscode = {
-    extensions = with pkgs.vscode-extensions; [
-      # This extension tries to modify it's 
-      # extension directory
-      # ruby
-      ruby-rubocop
-      rails
-      vscode-gemfile
-      vscode-erb-beautify
+  config = {
+    home.packages = with pkgs; [
+      pkgs.ruby
+      rubocop
+      htmlbeautifier
     ];
+
+    programs.vscode = {
+      extensions = with pkgs.vscode-extensions; [
+        # This extension tries to modify it's 
+        # extension directory
+        # ruby
+        ruby-rubocop
+        rails
+        vscode-gemfile
+        vscode-erb-beautify
+      ];
+    };
   };
 }

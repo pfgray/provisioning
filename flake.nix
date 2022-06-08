@@ -16,26 +16,14 @@
     in {
       homeConfigurations = {
 
-        "linux" = homeManager.lib.homeManagerConfiguration {
+        "base" = homeManager.lib.homeManagerConfiguration {
+          inherit stateVersion;
+          inherit (local.systemConfig) system username homeDirectory;
+
           configuration.imports = [
-            ./home-linux.nix
             ./home-common.nix
             local.overrides
           ];
-
-          inherit stateVersion;
-          inherit (local.systemConfig) system username homeDirectory;
-        };
-
-        "darwin" = homeManager.lib.homeManagerConfiguration {
-          configuration.imports = [
-            ./home-darwin.nix
-            ./home-common.nix
-            local.overrides
-          ];
-
-          inherit stateVersion;
-          inherit (local.systemConfig) system username homeDirectory;
         };
       };
     };

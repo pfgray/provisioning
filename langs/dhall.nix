@@ -1,14 +1,16 @@
 {pkgs, ...}:
 
 {
-  programs.vscode = {
-    extensions = with pkgs.vscode-extensions; [
-      dhall.vscode-dhall-lsp-server
+  config = {
+    programs.vscode = {
+      extensions = with pkgs.vscode-extensions; [
+        dhall.vscode-dhall-lsp-server
+      ];
+    };
+
+    home.packages = with pkgs; [
+      dhall
+      dhall-json
     ];
   };
-
-  home.packages = with pkgs; [
-    dhall
-    dhall-json
-  ];
 }
