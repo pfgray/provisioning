@@ -1,4 +1,4 @@
-{pkgs, lib, ...}:
+{pkgs, lib, config, ...}:
 
 let
   ruby-rubocop = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -12,14 +12,38 @@ let
         license = lib.licenses.mit;
       };
     };
-  ruby = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+
+  # This extension doesn't work with nix ootb because it tries to modify
+  # a file in the nix store...
+  # specifically the file: dist/server/shims/env.Users.paul.gray..nix-profile.bin.fish.fish
+  #
+  # The solution here is to modify this derivation's
+  # postInstall hook to create that file, then the extension
+  # doesn't try to create the file 
+  ruby = (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
       mktplcRef = {
         name = "ruby";
         publisher = "rebornix";
         version = "0.28.1";
         sha256 = "sha256-HAUdv+2T+neJ5aCGiQ37pCO6x6r57HIUnLm4apg9L50=";
       };
-    };
+    }).overrideAttrs (attrs: {
+      # TODO: will probably need to change the name of the file depending on the user
+      postInstall = (attrs.postInstall or "") + ''
+      mkdir -p $out/$installPrefix/dist/server/shims
+      echo "#!${config.home.homeDirectory}/.nix-profile/bin/fish
+for name in (set -nx)
+  if string match --quiet '*PATH' \$name
+    echo \$name=(string join : -- \$\$name)
+  else
+    echo \$name="\$\$name"
+  end
+end
+      " > $out/$installPrefix/dist/server/shims/env.Users.paul.gray..nix-profile.bin.fish.fish
+
+      chmod +x $out/$installPrefix/dist/server/shims/env.Users.paul.gray..nix-profile.bin.fish.fish
+      '';
+    });
   
   rails = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
       mktplcRef = {
@@ -63,7 +87,7 @@ in {
       extensions = with pkgs.vscode-extensions; [
         # This extension tries to modify it's 
         # extension directory
-        # ruby
+        ruby
         ruby-rubocop
         rails
         vscode-gemfile
