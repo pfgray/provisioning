@@ -25,6 +25,8 @@ in {
       bat
       gopass
       graphviz
+      terraform
+      terraform-ls
       # mutagen
     ] ++ (if pkgs.stdenv.isLinux then linuxPkgs else []);
 
