@@ -76,6 +76,13 @@ end
   htmlbeautifier = import ../tools/htmlbeautifier pkgs;
 
 in {
+
+  options = {
+    langs.ruby = {
+      enable = lib.mkEnableOption "The Ruby language";
+    };
+  };
+
   config = {
     home.packages = with pkgs; [
       pkgs.ruby

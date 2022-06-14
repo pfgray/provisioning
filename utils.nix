@@ -4,6 +4,8 @@ let
     docker
     docker-compose
   ];
+
+  rapture = import ./tools/rapture pkgs;
 in {
   config = {
     nixpkgs.config.allowUnfreePredicate = (pkg: true);
@@ -18,13 +20,20 @@ in {
       gnupg
       jwt-cli
       aws
-      kubectl
       postgresql
       ripgrep
       lsd
       bat
       gopass
       graphviz
+
+      kubectl
+      kustomize
+      k9s
+      kubectx
+      asdf
+      rapture
+
       terraform
       terraform-ls
       # mutagen
@@ -32,6 +41,7 @@ in {
 
     programs = {
       home-manager.enable = true;
+      go.enable = true;
     };
 
   };
