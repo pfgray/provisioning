@@ -76,6 +76,8 @@ set -x KUBECONFIG "$KUBECONFIG:$HOME/.kube/config"
 
 kubectl completion fish | source
 
+eval ( command rapture shell-init )
+
 set -gx PATH $PATH (ruby -e 'print Gem.user_dir')/bin
 
 # Nix

@@ -6,10 +6,15 @@ let
   ];
 
   rapture = import ./tools/rapture pkgs;
+  vaulted = import ./tools/vaulted pkgs;
+  kubectl1_22_7 =  import ./tools/kubectl pkgs;
+
 in {
   config = {
     nixpkgs.config.allowUnfreePredicate = (pkg: true);
     home.packages = with pkgs; [
+      kubectl1_22_7
+
       curl
       wget
       jq
@@ -19,7 +24,7 @@ in {
       git
       gnupg
       jwt-cli
-      aws
+      awscli2
       postgresql
       ripgrep
       lsd
@@ -27,12 +32,14 @@ in {
       gopass
       graphviz
 
-      kubectl
+      rustc
+      # kubectl
       kustomize
       k9s
       kubectx
       asdf
       rapture
+      vaulted
 
       terraform
       terraform-ls
@@ -42,6 +49,13 @@ in {
     programs = {
       home-manager.enable = true;
       go.enable = true;
+      direnv = {
+        enable = true;
+        # enableFishIntegration = true;
+        config = {
+          load_dotenv = true;
+        };
+      };
     };
 
   };

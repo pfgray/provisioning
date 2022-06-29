@@ -1,8 +1,7 @@
-
 Use this flake to pull in common provisioning configs.
 Define a flake locally which looks like:
 
-```
+```nix
 {
   inputs = {
     provisioning.url = "github:pfgray/provisioning";
@@ -24,16 +23,7 @@ Providing your `system`, `username`, `homeDirectory`. `overrides` wil be recursi
 
 To provision an environment, run:
 
-For Linux:
-
 ```sh
 nix run --impure github:nix-community/home-manager#home-manager \
-  --no-write-lock-file -- switch --flake ".#linux"
-```
-
-For MacOS:
-
-```sh
-nix run --impure github:nix-community/home-manager#home-manager \
-  --no-write-lock-file -- switch --flake ".#darwin"
+  --no-write-lock-file -- switch --flake ".#base"
 ```

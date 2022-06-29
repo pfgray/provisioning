@@ -88,6 +88,7 @@ in {
       pkgs.ruby
       rubocop
       htmlbeautifier
+      watchman
     ];
 
     programs.vscode = {
