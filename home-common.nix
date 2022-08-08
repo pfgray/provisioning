@@ -11,5 +11,6 @@
     ./langs/node.nix
     ./langs/dhall.nix
     ./langs/java.nix
+    ./overlays.nix
   ];
 }

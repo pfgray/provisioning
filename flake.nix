@@ -12,10 +12,13 @@
 
   outputs = { nixpkgs, homeManager, flake-utils, ... }: 
     let
-      stateVersion = "21.11";
+      stateVersion = "22.11";
       local = import ./local.nix;
     in {
       module = ./home-common.nix;
+      lib = {
+        bundix = import ./lib/bundix-helpers.nix;
+      };
     } // flake-utils.lib.eachDefaultSystem(
       system:
         let

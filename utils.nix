@@ -16,8 +16,10 @@ in {
       # kubectl1_22_7
 
       curl
+      gnugrep
       wget
       jq
+      yq-go
       tmux
       vim
       whois

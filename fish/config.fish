@@ -72,6 +72,10 @@ function jwtFromClipboard
   pbpaste | jwt decode -j - | jq
 end
 
+function dps
+  docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
+end
+
 set -x KUBECONFIG "$KUBECONFIG:$HOME/.kube/config"
 
 kubectl completion fish | source

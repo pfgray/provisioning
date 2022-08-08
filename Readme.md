@@ -1,5 +1,3 @@
-
-
 This flake contains home-manager configurations for my environment.
 
 It specifies things like fish config files, cli programs, vscode & its plugins.
@@ -10,30 +8,9 @@ The way it works, is I create a new `flake.nix` on each machine, with the machin
 nix run github:pfgray/provisioning#init
 ```
 
-This script prompts me for my user/home directory/system, but can make educated guesses for each of those. This 
+This script prompts me for my user/home directory/system, but can make educated guesses for each of those. This creates a `flake.nix` file which is setup to pull in the configurations form this repo. I then add any customizations to that flake which might not belong on other machines (i.e. proprietary work tools).
 
-
-```nix
-{
-  inputs = {
-    provisioning.url = "github:pfgray/provisioning";
-  };
-
-  outputs = { provisioning, ... }:
-    provisioning.provision {
-      systemConfig = {
-        system = "x86_64-linux";
-        username = "paul";
-        homeDirectory = "/home/paul";
-      };
-      overrides = {};
-    };
-}
-```
-
-Providing your `system`, `username`, `homeDirectory`. `overrides` wil be recursively merged with the default config, so you can use it to tweak the configs.
-
-To provision an environment, run:
+To apply the settings, run:
 
 ```sh
 nix run --impure github:nix-community/home-manager#home-manager \
