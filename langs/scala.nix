@@ -9,7 +9,7 @@
     };
 
     home.packages = with pkgs; [
-        pkgs.scala
+      pkgs.scala
     ];
   };
 }

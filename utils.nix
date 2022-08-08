@@ -55,6 +55,7 @@ in {
         config = {
           load_dotenv = true;
         };
+        nix-direnv.enable = true;
       };
     };
 

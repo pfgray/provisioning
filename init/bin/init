@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Enter username: (blank for $USER)"
+read init_username
+init_username="${init_username:-$USER}"
+echo "Enter home directory: (blank for $HOME)"
+read init_homedir
+init_homedir="${init_homedir:-$HOME}"
+
+default_system=$(nix eval --raw nixpkgs#system)
+echo "Enter system: (blank for $default_system)"
+read init_system
+init_system="${init_system:-$default_system}"
+
+echo "using: $init_username @ $init_homedir on $init_system"
+
+DIR=$(dirname "$0")
+
+export init_username
+export init_homedir
+export init_system
+
+FLAKE_OUT_FILE="$PWD/flake.nix"
+
+if test -f "$FLAKE_OUT_FILE"; then
+  echo "$FLAKE_OUT_FILE exists, not overwriting."
+  exit 1;
+fi
+
+cat "$DIR/../flake.template.nix" | envsubst '${init_username},${init_homedir},${init_system}' > "$FLAKE_OUT_FILE"
+#envsubst 
