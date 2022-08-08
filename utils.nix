@@ -7,13 +7,13 @@ let
 
   rapture = import ./tools/rapture pkgs;
   vaulted = import ./tools/vaulted pkgs;
-  kubectl1_22_7 =  import ./tools/kubectl pkgs;
+  # kubectl1_22_7 =  import ./tools/kubectl pkgs;
 
 in {
   config = {
     nixpkgs.config.allowUnfreePredicate = (pkg: true);
     home.packages = with pkgs; [
-      kubectl1_22_7
+      # kubectl1_22_7
 
       curl
       wget

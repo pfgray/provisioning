@@ -1,5 +1,17 @@
-Use this flake to pull in common provisioning configs.
-Define a flake locally which looks like:
+
+
+This flake contains home-manager configurations for my environment.
+
+It specifies things like fish config files, cli programs, vscode & its plugins.
+
+The way it works, is I create a new `flake.nix` on each machine, with the machine-specific settings for it. There's a template for this, that I initiate by running:
+
+```sh
+nix run github:pfgray/provisioning#init
+```
+
+This script prompts me for my user/home directory/system, but can make educated guesses for each of those. This 
+
 
 ```nix
 {
