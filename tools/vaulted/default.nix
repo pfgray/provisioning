@@ -1,6 +1,6 @@
-{buildGoModule, fetchFromGitHub, ...}:
+{buildGo117Module, fetchFromGitHub, ...}:
 
-buildGoModule rec {
+buildGo117Module rec {
   pname = "vaulted";
   version = "3.0.0";
 

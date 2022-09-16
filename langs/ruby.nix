@@ -85,8 +85,6 @@ in {
 
   config = {
     home.packages = with pkgs; [
-      pkgs.ruby
-      # bundler
       rubocop
       bundix
       htmlbeautifier

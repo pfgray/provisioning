@@ -39,7 +39,6 @@ in {
       kustomize
       k9s
       kubectx
-      asdf
       rapture
       vaulted
 
