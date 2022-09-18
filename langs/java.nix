@@ -2,7 +2,6 @@
 
 {
   config = {
-
     programs = {
       java = {
         enable = true;

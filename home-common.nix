@@ -12,5 +12,6 @@
     ./langs/dhall.nix
     ./langs/java.nix
     ./overlays.nix
+    ./iterm2
   ];
 }
