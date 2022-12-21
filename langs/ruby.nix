@@ -83,8 +83,9 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf config.langs.ruby.enable {
     home.packages = with pkgs; [
+      ruby
       rubocop
       bundix
       htmlbeautifier
@@ -102,5 +103,9 @@ in {
         vscode-erb-beautify
       ];
     };
+
+    programs.fish.shellInit = ''
+      set -gx PATH $PATH (ruby -e 'print Gem.user_dir')/bin
+    '';
   };
 }

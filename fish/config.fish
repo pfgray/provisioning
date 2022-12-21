@@ -82,8 +82,6 @@ kubectl completion fish | source
 
 eval ( command rapture shell-init )
 
-set -gx PATH $PATH (ruby -e 'print Gem.user_dir')/bin
-
 # Nix
 # if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 #   fenv source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
