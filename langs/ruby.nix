@@ -1,7 +1,7 @@
 {pkgs, lib, config, ...}:
 
 let
-  ruby-rubocop = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+  vscode-ruby-rubocop = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
       mktplcRef = {
         name = "ruby-rubocop";
         publisher = "misogi";
@@ -20,7 +20,7 @@ let
   # The solution here is to modify this derivation's
   # postInstall hook to create that file, then the extension
   # doesn't try to create the file 
-  ruby = (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+  vscode-ruby = (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
       mktplcRef = {
         name = "ruby";
         publisher = "rebornix";
@@ -45,7 +45,7 @@ end
       '';
     });
   
-  rails = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+  vscode-rails = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
       mktplcRef = {
         name = "rails";
         publisher = "bung87";
@@ -96,9 +96,9 @@ in {
       extensions = with pkgs.vscode-extensions; [
         # This extension tries to modify it's 
         # extension directory
-        ruby
-        ruby-rubocop
-        rails
+        vscode-ruby
+        vscode-ruby-rubocop
+        vscode-rails
         vscode-gemfile
         vscode-erb-beautify
       ];

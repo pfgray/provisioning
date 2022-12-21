@@ -1,12 +1,17 @@
-{pkgs, ...}:
+{pkgs, lib, config, ...}:
 
 {
-  config = {
-    programs.vscode = {
-      extensions = with pkgs.vscode-extensions; [
-        esbenp.prettier-vscode
-      ];
+  options = {
+    langs.node = {
+      enable = lib.mkEnableOption "The Nodejs engine";
     };
+  };
+
+  config = lib.mkIf config.langs.scala.enable {
+    programs.vscode.extensions = lib.mkIf config.programs.vscode.enable
+      [
+        pkgs.vscode-extensions.esbenp.prettier-vscode
+      ];
 
     home.packages = with pkgs; [
       nodePackages.ts-node
