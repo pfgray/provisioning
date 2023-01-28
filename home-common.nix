@@ -11,6 +11,7 @@
     ./langs/node.nix
     ./langs/dhall.nix
     ./langs/java.nix
+    ./langs/haskell.nix
     ./overlays.nix
     ./iterm2
   ];
