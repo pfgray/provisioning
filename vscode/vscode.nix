@@ -14,10 +14,8 @@ in {
     enable = true;
     package = pkgs.vscode;
     keybindings = import ./keybindings.nix;
-    # userSettings = {
-    #   "terraform-ls.terraformExecPath" = pkgs.terraform-ls;
-    # };
-    # enableUpdateCheck = false;
+    userSettings = import ./userSettings.nix;
+
     extensions = with pkgs.vscode-extensions; [
       justusadam.language-haskell
       silvenon.mdx

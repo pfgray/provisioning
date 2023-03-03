@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./bash/bash.nix
     ./utils.nix
     ./fish/fish.nix
     ./vscode/vscode.nix

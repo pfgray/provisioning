@@ -20,16 +20,6 @@ let
       sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
     };
   };
-
-  nvmFish = {
-    name = "nvm.fish";
-    src = pkgs.fetchFromGitHub {
-      owner = "jorgebucaran";
-      repo = "nvm.fish";
-      rev = "71593b324a5ad02996c6715a19358869440d9930";
-      sha256 = "0lqrg63ym00fznx2ivkwjkjsp37g4r02nvp10bwncv47vn54jrx9";
-    };
-  };
 in {
   config = {
     programs.fish = {
@@ -39,7 +29,6 @@ in {
       plugins = [
         bobthefish
         foreignEnv
-        nvmFish
       ];
     };
 
