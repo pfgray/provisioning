@@ -20,6 +20,16 @@ let
       sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
     };
   };
+
+  fish-completion-sync = {
+    name = "fish-completion-sync";
+    src = pkgs.fetchFromGitHub {
+      owner = "pfgray";
+      repo = "fish-completion-sync";
+      rev = "483145eb997c47dd8b16f193dd0b927d76ec122c";
+      sha256 = "sha256-MnrDegGc3kmnfL021JZWRLR8iaYYwwoy0FpUSP7AeVA=";
+    };
+  };
 in {
   config = {
     programs.fish = {
@@ -29,6 +39,7 @@ in {
       plugins = [
         bobthefish
         foreignEnv
+        fish-completion-sync
       ];
     };
 
