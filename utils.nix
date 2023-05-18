@@ -34,13 +34,13 @@ in {
       gopass
       graphviz
 
-      rustc
       # kubectl
       kustomize
       k9s
       kubectx
       rapture
       vaulted
+      fzf
 
       terraform
       terraform-ls

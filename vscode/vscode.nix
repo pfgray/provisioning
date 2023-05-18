@@ -1,4 +1,4 @@
-{pkgs, lib, ...}:
+{pkgs, ...}:
 
 let
   terraform = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -18,11 +18,11 @@ in {
 
     extensions = with pkgs.vscode-extensions; [
       justusadam.language-haskell
-      silvenon.mdx
       ms-azuretools.vscode-docker
       ms-vscode-remote.remote-ssh
       skyapps.fish-vscode
       terraform
+      esbenp.prettier-vscode
     ];
   };
 }

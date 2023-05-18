@@ -6,8 +6,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "oh-my-fish";
       repo = "theme-bobthefish";
-      rev = "a2ad38aa051aaed25ae3bd6129986e7f27d42d7b";
-      sha256 = "1fssb5bqd2d7856gsylf93d28n3rw4rlqkhbg120j5ng27c7v7lq";
+      rev = "ed896b65c3ddbdf2929c38719adfb940b0d9b90d";
+      sha256 = "sha256-DRMBZS8nT0rhKXQEGWNqR1FUavtvxH0xUdHU52WhSJQ=";
     };
   };
 
@@ -26,8 +26,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "pfgray";
       repo = "fish-completion-sync";
-      rev = "483145eb997c47dd8b16f193dd0b927d76ec122c";
-      sha256 = "sha256-MnrDegGc3kmnfL021JZWRLR8iaYYwwoy0FpUSP7AeVA=";
+      rev = "98f43ffcdb4e69fa5c08f94f929b8c51ba65ebc8";
+      sha256 = "sha256-J0JXEjM9Rhi5r9dMON1zEBbYK8oYzDGx4yCmhDoNMKw";
     };
   };
 in {
@@ -35,6 +35,10 @@ in {
     programs.fish = {
       enable = true;
       shellInit = builtins.readFile ./config.fish;
+
+      shellAliases = {
+        dc = "docker compose";
+      };
 
       plugins = [
         bobthefish
