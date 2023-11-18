@@ -22,11 +22,11 @@ in {
       yq-go
       tmux
       vim
-      whois
+      # whois
       git
       gnupg
       jwt-cli
-      awscli2
+      # awscli2
       postgresql
       ripgrep
       lsd
@@ -39,7 +39,7 @@ in {
       k9s
       kubectx
       rapture
-      vaulted
+      # vaulted
       fzf
 
       terraform

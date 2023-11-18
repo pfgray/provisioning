@@ -33,6 +33,7 @@
   "[typescriptreact]" = {
     "editor.defaultFormatter" = "esbenp.prettier-vscode";
   };
+  "editor.inlineSuggest.enabled" = true;
   "window.zoomLevel" = 2;
   "files.watcherExclude" = {
     "**/\.bloop" = true;

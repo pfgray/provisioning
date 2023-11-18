@@ -1,3 +1,7 @@
 {
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "editor.inlineSuggest.enabled": true,
+  "[nix]": {
+    "editor.defaultFormatter": "jnoortheen.nix-ide"
+  }
 }
