@@ -1,6 +1,6 @@
 {pkgs, lib, ...}:
 
 lib.mkIf pkgs.stdenv.isDarwin {
-  xdg.configFile."iterm2/com.googlecode.iterm2.plist".source =
-     ./com.googlecode.iterm2.plist;
+  home.file."Library/Application\ Support/iTerm2/DynamicProfiles/iterm-profiles.json".source =
+     ./iterm-profiles.json;
 }
