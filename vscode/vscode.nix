@@ -11,7 +11,7 @@ let
     };
 in {
   programs.vscode = {
-    enable = false;
+    enable = true;
     package = pkgs.vscode;
     keybindings = import ./keybindings.nix;
     userSettings = import ./userSettings.nix;
