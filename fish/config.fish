@@ -82,6 +82,8 @@ kubectl completion fish | source
 
 eval ( command rapture shell-init )
 
+alias dc="docker compose"
+
 # Nix
 # if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 #   fenv source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'

@@ -15,5 +15,7 @@
     ./langs/haskell.nix
     ./overlays.nix
     ./iterm2
+    ./alacritty
+    ./tmux
   ];
 }
