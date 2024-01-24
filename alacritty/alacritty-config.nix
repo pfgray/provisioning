@@ -16,16 +16,16 @@ in {
       size = 18;
       normal.family = "Fantasque Sans Mono";
     };
-    shell = {
-      program = "${tmux}/bin/tmux";
-      args = [
-        "new-session"
-        "-A"
-        "-D"
-        "-s"
-        "main"
-      ];
-    };
+    # shell = {
+    #   program = "${tmux}/bin/tmux";
+    #   args = [
+    #     "new-session"
+    #     "-A"
+    #     "-D"
+    #     "-s"
+    #     "main"
+    #   ];
+    # };
     key_bindings = [
       {
         key = "PageUp";
