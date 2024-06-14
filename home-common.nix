@@ -17,5 +17,6 @@
     ./iterm2
     ./alacritty
     ./tmux
+    ./video-tools
   ];
 }

@@ -39,7 +39,7 @@ in {
       k9s
       kubectx
       rapture
-      vaulted
+      #vaulted
       fzf
 
       terraform

@@ -2,15 +2,15 @@
   description = "Home Manager configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    homeManager = {
-      url = "github:nix-community/home-manager/release-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, homeManager, flake-utils, ... }: 
+  outputs = { nixpkgs, home-manager, flake-utils, ... }: 
     let
       stateVersion = "22.11";
       local = import ./local.nix;

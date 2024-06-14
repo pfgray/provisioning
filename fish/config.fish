@@ -76,9 +76,9 @@ function dps
   docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
 end
 
-set -x KUBECONFIG "$KUBECONFIG:$HOME/.kube/config"
+# set -x KUBECONFIG "$KUBECONFIG:$HOME/.kube/config"
 
-kubectl completion fish | source
+# kubectl completion fish | source
 
 eval ( command rapture shell-init )
 

@@ -44,4 +44,5 @@
   "nix.serverPath" = "nil";
   "nix.formatterPath" = "nixpkgs-fmt";
   "update.mode" = "none";
+  "window.titleBarStyle" = "custom";
 }

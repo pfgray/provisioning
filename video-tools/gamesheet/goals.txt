@@ -1,0 +1,32 @@
+1	Goal	That's What She Said	Patrick Reilly
+(Timothy Ren.)
+1	Goal	That's What She Said	Sam Murray
+(unassisted)
+1	Goal	That's What She Said	Sam Murray
+(Patrick Reilly)
+1	Goal	Rough Riders	Alex Brunstrom
+(Drew Fitzhugh)
+1	Goal	That's What She Said	Patrick Reilly
+(Evan Win.)
+1	Goal	Rough Riders	Michael Absalom
+(Sean Whitelock)
+1	Goal	Rough Riders	Brian Wodzisz
+(Henri San.)
+1	Goal	Rough Riders	Drew Fitzhugh
+(Alex Brunstrom)
+2	Goal	That's What She Said	Sam Murray
+(Patrick Reilly)
+2	Goal	Rough Riders	Alex Brunstrom
+(Drew Fitzhugh)
+2	Goal	Rough Riders	Drew Fitzhugh
+(Henri San.)
+2	Goal	Rough Riders	Michael Absalom
+(Sean Whitelock)
+2	Penalty	Rough Riders	Henri San.
+(Hooking - 2 min)
+2	Goal	That's What She Said	Steve Wil.
+(Evan Win.)
+2	Goal	That's What She Said	Timothy Ren.
+(Evan Win.)
+2	Goal	That's What She Said	Shane Kubik
+(Evan Win.)
