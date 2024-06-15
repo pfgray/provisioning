@@ -1,0 +1,35 @@
+ <producer id="producer1" in="00:00:00.000" out="00:00:08.133">
+  <property name="length">489</property>
+  <property name="eof">pause</property>
+  <property name="resource"/>
+  <property name="meta.media.progressive">1</property>
+  <property name="aspect_ratio">1</property>
+  <property name="seekable">1</property>
+  <property name="mlt_service">kdenlivetitle</property>
+  <property name="kdenlive:duration">00:00:05:00</property>
+  <property name="kdenlive:clipname">Rockville Inline Hockey</property>
+  <property name="xmldata">&lt;kdenlivetitle duration="300" LC_NUMERIC="C" width="2704" height="1520" out="299">
+ &lt;item type="QGraphicsTextItem" z-index="0">
+  &lt;position x="560" y="400">
+   &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
+  &lt;/position>
+  &lt;content line-spacing="0" shadow="0;#64000000;3;3;3" font-underline="0" box-height="720" font="Cantarell" letter-spacing="0" font-pixel-size="150" font-italic="0" typewriter="0;2;1;0;0" alignment="4" font-weight="75" box-width="1583" font-color="255,255,255,255">Rockville Inline Hockey
+$AWAY_TEAM_NAME
+@
+$HOME_TEAM_NAME
+$DATE&lt;/content>
+ &lt;/item>
+ &lt;startviewport rect="0,0,2704,1520"/>
+ &lt;endviewport rect="0,0,2704,1520"/>
+ &lt;background color="0,0,0,0"/>
+&lt;/kdenlivetitle>
+</property>
+  <property name="xml">was here</property>
+  <property name="kdenlive:folderid">-1</property>
+  <property name="kdenlive:id">11</property>
+  <property name="kdenlive:clip_type">2</property>
+  <property name="kdenlive:file_hash">19a2f7971d443c01c479ff9a9bc4cc7c</property>
+  <property name="force_reload">0</property>
+  <property name="meta.media.width">2704</property>
+  <property name="meta.media.height">1520</property>
+ </producer>
