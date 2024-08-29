@@ -33,6 +33,8 @@ in {
       bat
       gopass
       graphviz
+      typora
+      obsidian
 
       # kubectl
       kustomize
