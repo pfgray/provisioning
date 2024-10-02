@@ -1,4 +1,4 @@
-{pkgs, lib, ...}:
+{pkgs, lib, config, ...}:
 
 let 
   bobthefish = {
@@ -34,7 +34,13 @@ in {
   config = {
     programs.fish = {
       enable = true;
-      shellInit = builtins.readFile ./config.fish;
+      shellInit = ''
+      ${builtins.readFile ./config.fish}
+
+      ${lib.mkIf (config.tools.rapture.enable) ''
+        eval ( command rapture shell-init )
+      ''}
+      '';
 
       shellAliases = {
         dc = "docker compose";

@@ -80,8 +80,6 @@ end
 
 # kubectl completion fish | source
 
-eval ( command rapture shell-init )
-
 alias dc="docker compose"
 
 # Nix
