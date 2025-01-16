@@ -61,6 +61,15 @@ let
     };
   };
 
+  cline = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "claude-dev";
+      publisher = "saoudrizwan";
+      version = "3.1.8";
+      sha256 = "sha256-td9Wk1QubVdds7N1L02OYwl1OtBRiF+yF1fwYA2EC9o=";
+    };
+  };
+
 in
 {
   programs.vscode = {
@@ -86,6 +95,7 @@ in
       github.copilot
       devcontainers
       ms-vscode-remote.remote-ssh
+      cline
       # not in this version of nixpkgs yet
       # github.copilot-chat
       # brettm12345.nixfmt-vscode
