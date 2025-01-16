@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 
 let
   terraform = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -43,6 +43,15 @@ let
     };
   };
 
+  devcontainers = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "remote-containers";
+      publisher = "ms-vscode-remote";
+      version = "0.388.0";
+      sha256 = "sha256-dik1x6h8+DsEW5gH5BekCOvezTCGtiebIh4VIGGQbLE=";
+    };
+  };
+
   ShopifyRubyLSP = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
       name = "ruby-lsp";
@@ -51,7 +60,9 @@ let
       sha256 = "sha256-dPPTo5DzSXlBSAaId8x54veYP/vy47Y40vTaJA4E+Qc=";
     };
   };
-in {
+
+in
+{
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
@@ -73,6 +84,8 @@ in {
       # mhutchie.git-graph
       donjayamanne.githistory
       github.copilot
+      devcontainers
+      ms-vscode-remote.remote-ssh
       # not in this version of nixpkgs yet
       # github.copilot-chat
       # brettm12345.nixfmt-vscode

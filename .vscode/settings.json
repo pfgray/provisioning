@@ -3,5 +3,13 @@
   "editor.inlineSuggest.enabled": true,
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
+  },
+  "nix.serverSettings": {
+    // settings for 'nil' LSP
+    "nil": {
+      "formatting": {
+        "command": ["nixpkgs-fmt"]
+      }
+    }
   }
 }

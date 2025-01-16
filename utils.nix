@@ -39,7 +39,7 @@ in {
       kustomize
       k9s
       kubectx
-      rapture
+      # rapture
       #vaulted
       fzf
 

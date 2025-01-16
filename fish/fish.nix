@@ -34,12 +34,14 @@ in {
   config = {
     programs.fish = {
       enable = true;
+      # todo: this snippet doesn't work
+      # ${lib.mkIf (config.tools.rapture.enable) ''
+      #     eval ( command rapture shell-init )
+      #   ''}
       shellInit = ''
-      ${builtins.readFile ./config.fish}
 
-      ${lib.mkIf (config.tools.rapture.enable) ''
-        eval ( command rapture shell-init )
-      ''}
+        ${builtins.readFile ./config.fish}
+        
       '';
 
       shellAliases = {
