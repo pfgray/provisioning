@@ -1,4 +1,4 @@
-{tmux, writeShellScriptBin}:
+{tmux, writeShellScriptBin, fish}:
 
 let
 
@@ -16,6 +16,9 @@ in {
       size = 18;
       normal.family = "Fantasque Sans Mono";
     };
+    terminal.shell = {
+      program = "${fish}/bin/fish";
+    };
     # shell = {
     #   program = "${tmux}/bin/tmux";
     #   args = [
@@ -26,16 +29,6 @@ in {
     #     "main"
     #   ];
     # };
-    key_bindings = [
-      {
-        key = "PageUp";
-        action = "ScrollLineUp";
-      }
-      {
-        key = "PageDown";
-        action = "ScrollLineDown";
-      }
-    ];
     hints = {
       enabled = [
         {

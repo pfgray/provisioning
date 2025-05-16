@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   terraform = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -70,11 +70,22 @@ let
     };
   };
 
+  copilot-chat = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "copilot-chat";
+      publisher = "GitHub";
+      version = "0.23.0";
+      sha256 = "sha256-IGioJK0aQXztTQmk6oejZYie+x/Ffvqe5UqHbsXVZlE=";
+    };
+  };
+
+  vscode-custom = import ./custom-vscode.nix { inherit pkgs; };
+
 in
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode;
+    package = vscode-custom;
     keybindings = import ./keybindings.nix;
     userSettings = import ./userSettings.nix;
     mutableExtensionsDir = false;
@@ -93,6 +104,7 @@ in
       # mhutchie.git-graph
       donjayamanne.githistory
       github.copilot
+      copilot-chat
       devcontainers
       ms-vscode-remote.remote-ssh
       cline
@@ -101,4 +113,5 @@ in
       # brettm12345.nixfmt-vscode
     ];
   };
+
 }

@@ -1,6 +1,6 @@
-{pkgs, lib, config, ...}:
+{ pkgs, lib, config, ... }:
 
-let 
+let
   bobthefish = {
     name = "bobthefish";
     src = pkgs.fetchFromGitHub {
@@ -30,18 +30,19 @@ let
       sha256 = "sha256-J0JXEjM9Rhi5r9dMON1zEBbYK8oYzDGx4yCmhDoNMKw";
     };
   };
-in {
+in
+{
   config = {
     programs.fish = {
       enable = true;
-      # todo: this snippet doesn't work
-      # ${lib.mkIf (config.tools.rapture.enable) ''
-      #     eval ( command rapture shell-init )
-      #   ''}
+
       shellInit = ''
 
         ${builtins.readFile ./config.fish}
-        
+
+        ${if builtins.currentSystem == "aarch64-darwin" then (''
+        fish_add_path "/Applications/Docker.app/Contents/Resources/bin/"
+        '') else "" }
       '';
 
       shellAliases = {
@@ -59,6 +60,6 @@ in {
       for f in $plugin_dir/*.fish
         source $f
       end
-      '';
+    '';
   };
 }
