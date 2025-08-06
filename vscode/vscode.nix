@@ -74,8 +74,8 @@ let
     mktplcRef = {
       name = "copilot-chat";
       publisher = "GitHub";
-      version = "0.23.0";
-      sha256 = "sha256-IGioJK0aQXztTQmk6oejZYie+x/Ffvqe5UqHbsXVZlE=";
+      version = "0.27.0";
+      sha256 = "sha256-i7KKW+aM8P1nrgnLZssgAlKm1kaQyeh285EnoN9Bwps=";
     };
   };
 
