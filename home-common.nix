@@ -1,4 +1,4 @@
-{pkgs, config, ...}:
+{ pkgs, config, ... }:
 
 {
   imports = [
@@ -8,6 +8,7 @@
     ./fish/fish.nix
     ./vscode/vscode.nix
     ./langs/nix.nix
+    ./git/default.nix
     ./langs/ruby.nix
     ./langs/scala.nix
     ./langs/node.nix
