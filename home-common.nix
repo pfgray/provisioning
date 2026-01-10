@@ -21,5 +21,6 @@
     ./alacritty
     ./tmux
     ./video-tools
+    ./claude-code
   ];
 }

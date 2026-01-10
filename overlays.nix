@@ -22,6 +22,7 @@
           });
         });
       };
+      claude-code = inputs.claude-code.packages.${prev.system}.claude-code or null;
     })
   ];
 }

@@ -8,15 +8,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
-  outputs = { nixpkgs, home-manager, flake-utils, ... }:
+  outputs = { nixpkgs, home-manager, flake-utils, claude-code, ... }@inputs:
     let
       stateVersion = "22.11";
       local = import ./local.nix;
     in
     {
-      module = ./home-common.nix;
+      module = { ... }: {
+        imports = [ ./home-common.nix ];
+        _module.args = { inherit inputs; };
+      };
       lib = {
         bundix = import ./lib/bundix-helpers.nix;
       };
