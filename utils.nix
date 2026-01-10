@@ -7,6 +7,8 @@ let
 
   rapture = import ./tools/rapture pkgs;
   vaulted = import ./tools/vaulted pkgs;
+
+  to-mp3 = import ./video-tools/to-mp3 pkgs;
   # kubectl1_22_7 =  import ./tools/kubectl pkgs;
 
 in {
@@ -34,6 +36,7 @@ in {
       gopass
       graphviz
       obsidian
+      to-mp3
 
       # kubectl
       kustomize

@@ -80,6 +80,23 @@ let
   };
 
   vscode-custom = import ./custom-vscode.nix { inherit pkgs; };
+  pico8-ls = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "pico8-ls";
+      publisher = "PollywogGames";
+      version = "0.5.7";
+      sha256 = "sha256-2cPuEpqr/qvxT9xqMDk345pTk5slSXMc1i80VqV2y2c=";
+    };
+  };
+
+  pico8-vscode = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "pico8-vscode";
+      publisher = "johob";
+      version = "0.0.1";
+      sha256 = "sha256-AUzIF8axu/tgo8akQuEiyyyChOX9I03JVq6KlR70NKA=";
+    };
+  };
 
 in
 {
@@ -108,6 +125,9 @@ in
       devcontainers
       ms-vscode-remote.remote-ssh
       cline
+
+      pico8-ls
+      pico8-vscode
       # not in this version of nixpkgs yet
       # github.copilot-chat
       # brettm12345.nixfmt-vscode
