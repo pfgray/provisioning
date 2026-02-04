@@ -12,8 +12,8 @@
     let
       system = "$init_system";
     in {
-      homeConfigurations.base = home-manager.lib.homeManagerConfiguration { 
-        pkgs = nixpkgs.legacyPackages.${system};
+      homeConfigurations.base = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.$${system};
 
         modules = [
           provisioning.module
