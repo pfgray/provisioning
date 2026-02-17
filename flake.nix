@@ -17,9 +17,20 @@
       local = import ./local.nix;
     in
     {
-      module = { ... }: {
+      module = { config, lib, ... }: {
+        options.provisioning = {
+          enableGui = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = "Enable GUI applications (vscode, alacritty, iterm2, etc)";
+          };
+        };
+
+        config = {
+          _module.args = { inherit inputs; };
+        };
+
         imports = [ ./home-common.nix ];
-        _module.args = { inherit inputs; };
       };
       lib = {
         bundix = import ./lib/bundix-helpers.nix;

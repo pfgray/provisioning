@@ -40,7 +40,7 @@ in
 
         ${builtins.readFile ./config.fish}
 
-        ${if builtins.currentSystem == "aarch64-darwin" then (''
+        ${if pkgs.stdenv.system == "aarch64-darwin" then (''
         fish_add_path "/Applications/Docker.app/Contents/Resources/bin/"
         '') else "" }
       '';

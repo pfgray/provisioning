@@ -18,6 +18,9 @@
         modules = [
           provisioning.module
           {
+            # Uncomment the line below for server installations (no GUI apps)
+            # provisioning.enableGui = false;
+
             home = {
               username = "$init_username";
               homeDirectory = "$init_homedir";
