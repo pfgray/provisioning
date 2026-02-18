@@ -1,0 +1,10 @@
+{
+  "id": "obsidian-rsync-sync",
+  "name": "Rsync Sync",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Automatic vault synchronization using rclone/rsync",
+  "author": "Paul Gray",
+  "authorUrl": "https://github.com/pfgray",
+  "isDesktopOnly": true
+}

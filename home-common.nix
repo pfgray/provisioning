@@ -26,5 +26,6 @@
     ./iterm2
     ./alacritty
     ./claude-code
+    ./obsidian
   ];
 }

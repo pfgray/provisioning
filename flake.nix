@@ -40,9 +40,11 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         init = import ./init system { pkgs = pkgs; };
+        obsidian-plugin = import ./obsidian/plugin { inherit pkgs; };
       in
       rec {
         packages.init = init;
+        packages.obsidian-plugin = obsidian-plugin;
         apps.init = flake-utils.lib.mkApp {
           drv = init;
         };
