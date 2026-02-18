@@ -1,6 +1,6 @@
-{pkgs, lib, ...}:
+{pkgs, config, lib, ...}:
 
-lib.mkIf pkgs.stdenv.isDarwin {
+lib.mkIf (pkgs.stdenv.isDarwin && config.provisioning.enableGui) {
   home.file."Library/Application\ Support/iTerm2/DynamicProfiles/iterm-profiles.json".source =
      ./iterm-profiles.json;
 

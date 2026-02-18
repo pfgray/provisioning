@@ -17,9 +17,20 @@
       local = import ./local.nix;
     in
     {
-      module = { ... }: {
+      module = { config, lib, ... }: {
+        options.provisioning = {
+          enableGui = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = "Enable GUI applications (vscode, alacritty, iterm2, etc)";
+          };
+        };
+
+        config = {
+          _module.args = { inherit inputs; };
+        };
+
         imports = [ ./home-common.nix ];
-        _module.args = { inherit inputs; };
       };
       lib = {
         bundix = import ./lib/bundix-helpers.nix;
@@ -29,9 +40,11 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         init = import ./init system { pkgs = pkgs; };
+        obsidian-plugin = import ./obsidian/plugin { inherit pkgs; };
       in
       rec {
         packages.init = init;
+        packages.obsidian-plugin = obsidian-plugin;
         apps.init = flake-utils.lib.mkApp {
           drv = init;
         };

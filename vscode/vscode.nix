@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   terraform = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -100,38 +100,40 @@ let
 
 in
 {
-  programs.vscode = {
-    enable = true;
-    package = vscode-custom;
-    keybindings = import ./keybindings.nix;
-    userSettings = import ./userSettings.nix;
-    mutableExtensionsDir = false;
+  config = lib.mkIf config.provisioning.enableGui {
+    programs.vscode = {
+      enable = true;
+      package = vscode-custom;
+      keybindings = import ./keybindings.nix;
+      userSettings = import ./userSettings.nix;
+      mutableExtensionsDir = false;
 
-    extensions = with pkgs.vscode-extensions; [
-      # justusadam.language-haskell
-      # ms-azuretools.vscode-docker
-      # ms-vscode-remote.remote-ssh
-      skyapps.fish-vscode
-      # terraform
-      plantumlExt
-      ShopifyRubyLSP
-      esbenp.prettier-vscode
-      # CamelCase
-      waderyan.gitblame
-      # mhutchie.git-graph
-      donjayamanne.githistory
-      github.copilot
-      copilot-chat
-      devcontainers
-      ms-vscode-remote.remote-ssh
-      cline
+      extensions = with pkgs.vscode-extensions; [
+        # justusadam.language-haskell
+        # ms-azuretools.vscode-docker
+        # ms-vscode-remote.remote-ssh
+        skyapps.fish-vscode
+        # terraform
+        plantumlExt
+        ShopifyRubyLSP
+        esbenp.prettier-vscode
+        # CamelCase
+        waderyan.gitblame
+        # mhutchie.git-graph
+        donjayamanne.githistory
+        github.copilot
+        copilot-chat
+        devcontainers
+        ms-vscode-remote.remote-ssh
+        cline
+        # not in this version of nixpkgs yet
+        # github.copilot-chat
+        # brettm12345.nixfmt-vscode
 
-      pico8-ls
-      pico8-vscode
-      # not in this version of nixpkgs yet
-      # github.copilot-chat
-      # brettm12345.nixfmt-vscode
-    ];
+        pico8-ls
+        pico8-vscode
+      ];
+    };
   };
 
 }
