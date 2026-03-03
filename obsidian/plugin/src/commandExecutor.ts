@@ -15,21 +15,30 @@ export class SyncError extends Error {
   }
 }
 
+export interface ExecuteOptions {
+  env?: Record<string, string>;
+}
+
 export class CommandExecutor {
-  async execute(command: string): Promise<SyncResult> {
+  async execute(command: string, options?: ExecuteOptions): Promise<SyncResult> {
     if (!Platform.isDesktop && !Platform.isDesktopApp) {
       throw new Error('This plugin requires desktop platform');
     }
 
-    return this.executeDesktop(command);
+    return this.executeDesktop(command, options);
   }
 
-  private executeDesktop(command: string): Promise<SyncResult> {
+  private executeDesktop(command: string, options?: ExecuteOptions): Promise<SyncResult> {
     // Use require instead of import for Node.js modules
     // This is available in Obsidian's desktop environment
     const { exec } = require('child_process');
 
     logger.debug('Executing command:', command);
+
+    // Merge custom env vars with existing environment
+    const env = options?.env
+      ? { ...process.env, ...options.env }
+      : process.env;
 
     return new Promise((resolve, reject) => {
       exec(
@@ -37,6 +46,7 @@ export class CommandExecutor {
         {
           maxBuffer: 10 * 1024 * 1024, // 10MB buffer
           timeout: 300000, // 5 minute timeout
+          env,
         },
         (error: any, stdout: string, stderr: string) => {
           if (error) {

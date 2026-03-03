@@ -14,6 +14,7 @@ export interface SyncSettings {
   excludePatterns: string[];
   syncOnStartup: boolean;
   syncOnFileChange: boolean;
+  maxDelete: number;
 }
 
 export const DEFAULT_SETTINGS: SyncSettings = {
@@ -29,6 +30,7 @@ export const DEFAULT_SETTINGS: SyncSettings = {
   excludePatterns: ['.trash', '.git', '.obsidian/workspace*'],
   syncOnStartup: true,
   syncOnFileChange: true,
+  maxDelete: 50,
 };
 
 export class SyncSettingTab extends PluginSettingTab {
@@ -166,6 +168,19 @@ export class SyncSettingTab extends PluginSettingTab {
         .onChange(async (value: 'newest' | 'server' | 'client') => {
           this.plugin.settings.conflictStrategy = value;
           await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName('Max deletions per sync')
+      .setDesc('Maximum files that can be deleted in one sync (safety limit). Set higher if deletions are not syncing.')
+      .addText(text => text
+        .setValue(String(this.plugin.settings.maxDelete))
+        .onChange(async (value) => {
+          const num = parseInt(value);
+          if (!isNaN(num) && num > 0) {
+            this.plugin.settings.maxDelete = num;
+            await this.plugin.saveSettings();
+          }
         }));
   }
 }

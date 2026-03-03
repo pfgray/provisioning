@@ -167,27 +167,17 @@ in {
       ''
     );
 
-    # Rclone config for SFTP remote (writable file, not symlink)
-    home.activation.rcloneConfig = mkIf config.obsidian.sync.enable (
-      lib.hm.dag.entryAfter ["writeBoundary"] ''
-        RCLONE_CONFIG="${config.home.homeDirectory}/.config/rclone/rclone.conf"
-        $DRY_RUN_CMD mkdir -p "$(dirname "$RCLONE_CONFIG")"
-
-        # Only create if it doesn't exist, to preserve any rclone-managed settings
-        if [ ! -f "$RCLONE_CONFIG" ]; then
-          $DRY_RUN_CMD cat > "$RCLONE_CONFIG" << EOF
-[obsidian-remote]
-type = sftp
-host = ${config.obsidian.sync.remoteHost}
-user = ${config.obsidian.sync.remoteUser}
-shell_type = unix
-# Note: key_file is intentionally omitted to use SSH agent
-# This allows password-protected keys to work via ssh-agent
-EOF
-          echo "Created rclone config at $RCLONE_CONFIG"
-        fi
-      ''
-    );
+    # Rclone config via environment variables (no config file needed)
+    # This is more idiomatic for Nix and avoids rclone trying to write to a read-only file
+    # Format: RCLONE_CONFIG_<REMOTE_NAME>_<OPTION>=value (hyphens become underscores)
+    home.sessionVariables = mkIf config.obsidian.sync.enable {
+      RCLONE_CONFIG_OBSIDIAN_REMOTE_TYPE = "sftp";
+      RCLONE_CONFIG_OBSIDIAN_REMOTE_HOST = config.obsidian.sync.remoteHost;
+      RCLONE_CONFIG_OBSIDIAN_REMOTE_USER = config.obsidian.sync.remoteUser;
+      RCLONE_CONFIG_OBSIDIAN_REMOTE_SHELL_TYPE = "unix";
+      # key_file is intentionally omitted to use SSH agent
+      # This allows password-protected keys to work via ssh-agent
+    };
 
     # SSH config
     programs.ssh.matchBlocks = mkIf config.obsidian.sync.enable {

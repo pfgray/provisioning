@@ -73,6 +73,22 @@ export default class RsyncSyncPlugin extends Plugin {
       }
     });
 
+    // Add force resync command
+    this.addCommand({
+      id: 'force-resync',
+      name: 'Force Resync (Reset Sync State)',
+      callback: async () => {
+        logger.info('Force resync triggered');
+        new Notice('Starting force resync (this establishes a new baseline)...');
+        try {
+          await this.syncManager.forceResync();
+          new Notice('Force resync completed - sync state has been reset');
+        } catch (error) {
+          new Notice(`Force resync failed: ${(error as Error).message}`);
+        }
+      }
+    });
+
     // Add status bar item
     const statusBarItem = this.addStatusBarItem();
     statusBarItem.setText('Rsync Sync: Ready');

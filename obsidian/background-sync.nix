@@ -9,6 +9,12 @@ let
   syncScript = pkgs.writeShellScript "obsidian-sync" ''
     set -e
 
+    # Rclone config via environment variables (no config file needed)
+    export RCLONE_CONFIG_OBSIDIAN_REMOTE_TYPE="sftp"
+    export RCLONE_CONFIG_OBSIDIAN_REMOTE_HOST="${config.obsidian.sync.remoteHost}"
+    export RCLONE_CONFIG_OBSIDIAN_REMOTE_USER="${config.obsidian.sync.remoteUser}"
+    export RCLONE_CONFIG_OBSIDIAN_REMOTE_SHELL_TYPE="unix"
+
     VAULT_PATH="${config.obsidian.vaultPath}"
     REMOTE="obsidian-remote:${config.obsidian.sync.remotePath}"
 
@@ -23,11 +29,11 @@ let
       "$VAULT_PATH" \
       "$REMOTE" \
       --create-empty-src-dirs \
-      --compare size,modtime,checksum \
-      --conflict-resolve ${config.obsidian.sync.conflictStrategy} \
+      --conflict-resolve newer \
       --resilient \
       --recover \
-      --max-delete 10 \
+      --max-delete 50 \
+      --check-access \
       --exclude ".trash/**" \
       --exclude ".git/**" \
       --exclude ".obsidian/workspace*" \
