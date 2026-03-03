@@ -1,4 +1,4 @@
-{tmux, writeShellScriptBin, fish}:
+{ tmux, writeShellScriptBin, fish }:
 
 let
 
@@ -7,7 +7,8 @@ let
     open https://gerrit.instructure.com/c/$G_ID
   '';
 
-in {
+in
+{
   config = {
     window = {
       decorations_theme_variant = "Dark";
@@ -34,10 +35,7 @@ in {
         {
           hyperlinks = true;
           command = "open";
-          binding = {
-            mods = "Command";
-            key = "Period";
-          };
+          regex = ''(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>"\\s{-}\\^⟨⟩`\\\\]+'';
           mouse = {
             enabled = true;
             mods = "Control";
@@ -46,6 +44,7 @@ in {
         {
           regex = "g/[0-9]*";
           command = "${openGerritId}/bin/open-gerrit-id";
+
           mouse = {
             enabled = true;
             mods = "Control";
