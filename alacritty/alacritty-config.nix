@@ -17,19 +17,21 @@ in
       size = 18;
       normal.family = "Fantasque Sans Mono";
     };
-    terminal.shell = {
-      program = "${fish}/bin/fish";
+    terminal = {
+      # shell = {
+      #   program = "${fish}/bin/fish";
+      # };
+      shell = {
+        program = "${tmux}/bin/tmux";
+        args = [
+          "new-session"
+          "-A"
+          "-D"
+          "-s"
+          "main"
+        ];
+      };
     };
-    # shell = {
-    #   program = "${tmux}/bin/tmux";
-    #   args = [
-    #     "new-session"
-    #     "-A"
-    #     "-D"
-    #     "-s"
-    #     "main"
-    #   ];
-    # };
     hints = {
       enabled = [
         {
