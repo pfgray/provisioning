@@ -1,4 +1,4 @@
-{pkgs, config, lib, ...}:
+{ pkgs, config, lib, ... }:
 
 {
   options = {
@@ -8,7 +8,7 @@
   };
 
   config = {
-    programs.vscode.extensions = lib.mkIf (config.programs.vscode.enable && config.langs.rust.enable) [
+    programs.vscode.profiles.default.extensions = lib.mkIf (config.programs.vscode.enable && config.langs.rust.enable) [
       pkgs.vscode-extensions.rust-lang.rust-analyzer
     ];
 

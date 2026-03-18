@@ -1,4 +1,4 @@
-{pkgs, config, lib, ...}:
+{ pkgs, config, lib, ... }:
 
 {
   options = {
@@ -8,7 +8,7 @@
   };
 
   config = {
-    programs.vscode.extensions = lib.mkIf (config.programs.vscode.enable && config.langs.dhall.enable) [
+    programs.vscode.profiles.default.extensions = lib.mkIf (config.programs.vscode.enable && config.langs.dhall.enable) [
       pkgs.vscode-extensions.dhall.dhall-lang
       pkgs.vscode-extensions.dhall.vscode-dhall-lsp-server
     ];

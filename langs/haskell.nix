@@ -1,4 +1,4 @@
-{pkgs, config, lib, ...}:
+{ pkgs, config, lib, ... }:
 
 {
   options = {
@@ -8,7 +8,7 @@
   };
 
   config = lib.mkIf config.langs.haskell.enable {
-    programs.vscode.extensions = lib.mkIf (config.programs.vscode.enable) [
+    programs.vscode.profiles.default.extensions = lib.mkIf (config.programs.vscode.enable) [
       pkgs.vscode-extensions.haskell.haskell
     ];
 

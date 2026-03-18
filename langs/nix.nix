@@ -1,8 +1,8 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 
 {
   config = {
-    programs.vscode = {
+    programs.vscode.profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
         jnoortheen.nix-ide
