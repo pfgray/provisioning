@@ -18,9 +18,9 @@ pkgs.stdenv.mkDerivation {
 
     chmod +x $out/bin/.tmux-mouse-hints-handler-wrapped
 
-    # Wrap the script to ensure tmux is in PATH
+    # Wrap the script to ensure tmux and jq are in PATH
     makeWrapper $out/bin/.tmux-mouse-hints-handler-wrapped $out/bin/tmux-mouse-hints-handler \
-      --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.tmux ]}
+      --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.tmux pkgs.jq ]}
   '';
 
   meta = {

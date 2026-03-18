@@ -49,7 +49,7 @@
     enable = true;
     patterns = [
       {
-        pattern = "(https?|git|ssh|ftp|file)://[^\\s<>\"{}|\\^`\\\\]+";
+        pattern = "((https?|git|ssh|ftp|file)://[^[:space:]<>\"{}|\\^`\\\\]+)";
         command = "open {match}";
       }
       {
@@ -61,12 +61,12 @@
         command = "open {match}";
       }
       {
-        pattern = "g/[0-9]+";
-        command = "/nix/store/z86032kgdx2m41l5in2by95805r4pa7q-open-gerrit-id/bin/open-gerrit-id {match}";
+        pattern = "Change-Id: (I[0-9a-f]{40})";
+        command = "open 'https://gerrit.instructure.com/q/{match}'";
       }
       {
-        pattern = "(\\/|\\.(\\/|\\.\\/))[\\/\\w\\.\\-]+";
-        command = "open {match}";
+        pattern = "(g/[0-9]+)";
+        command = "/nix/store/z86032kgdx2m41l5in2by95805r4pa7q-open-gerrit-id/bin/open-gerrit-id {match}";
       }
     ];
   };

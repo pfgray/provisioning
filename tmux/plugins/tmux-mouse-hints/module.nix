@@ -5,18 +5,10 @@ with lib;
 let
   cfg = config.programs.tmux.mouseHints;
 
-  # Generate the config file content
-  configContent = concatMapStringsSep "\n"
-    (entry: "${entry.pattern} = ${entry.command}")
-    cfg.patterns;
-
-  mouseHintsConfigFile = pkgs.writeText "tmux-mouse-hints.conf" ''
-    # tmux-mouse-hints configuration
-    # Format: regex = command
-    # Use {match} in the command to reference the matched text
-
-    ${configContent}
-  '';
+  # Generate the config file content in JSON format
+  mouseHintsConfigFile = pkgs.writeText "tmux-mouse-hints.json" (builtins.toJSON {
+    patterns = cfg.patterns;
+  });
 
   # Build the plugin package
   mouseHintsPackage = pkgs.callPackage ./package.nix {
