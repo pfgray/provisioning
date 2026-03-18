@@ -93,6 +93,11 @@ export default class RsyncSyncPlugin extends Plugin {
     const statusBarItem = this.addStatusBarItem();
     statusBarItem.setText('Rsync Sync: Ready');
 
+    // Clean up stale locks when window gains focus (e.g., after wake from sleep)
+    this.registerDomEvent(window, 'focus', () => {
+      this.syncManager.cleanupStaleLock();
+    });
+
     logger.info('Rsync Sync plugin loaded');
   }
 

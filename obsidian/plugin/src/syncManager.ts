@@ -22,8 +22,9 @@ export class SyncManager {
     this.cleanupStaleLock();
   }
 
-  // Remove lock files older than 10 minutes (likely from crashed syncs)
-  private cleanupStaleLock(): void {
+  // Remove lock files older than 2 minutes (likely from crashed/suspended syncs)
+  // Public so it can be called on window focus (e.g., after wake from sleep)
+  cleanupStaleLock(): void {
     const fs = require('fs');
     const path = require('path');
     const os = require('os');
@@ -44,7 +45,7 @@ export class SyncManager {
         const stats = fs.statSync(lockFile);
         const ageMinutes = (Date.now() - stats.mtimeMs) / (1000 * 60);
 
-        if (ageMinutes > 10) {
+        if (ageMinutes > 2) {
           logger.info(`Removing stale lock file (${Math.round(ageMinutes)} minutes old)`);
           fs.unlinkSync(lockFile);
         } else {
