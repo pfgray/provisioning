@@ -41,7 +41,10 @@
 
       # Customize copy mode selection highlight (when selecting text)
       set -g mode-style "fg=#{@thm_fg},bg=#{@thm_surface_2},bold"
-    '';
+    '' + (if pkgs.stdenv.isLinux then ''
+      # Enable linux clipboard integration for copy mode (requires xclip)
+      bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "${pkgs.xclip}/bin/xclip -in -selection clipboard"
+    '' else "");
   };
 
   # Configure tmux mouse hints
