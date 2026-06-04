@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# git-checkout: fuzzy-select a branch and check it out
+
+set -euo pipefail
+
+selected=$(
+  git branch \
+    | sed 's/^[* ]*//g' \
+    | sed 's|remotes/origin/||g' \
+    | sort -u \
+    | grep -v '^HEAD' \
+    | while IFS= read -r branch; do
+        hash=$(git rev-parse --short "$branch" 2>/dev/null) || hash="???"
+        printf '%-40s %s\n' "$branch" "$hash"
+      done \
+    | fzf --prompt="Select branch to checkout: " \
+          --no-sort \
+          --layout=reverse \
+          --height=~50%
+)
+
+branch=$(awk '{print $1}' <<< "$selected")
+
+if [[ -n "$branch" ]]; then
+  git checkout "$branch"
+fi

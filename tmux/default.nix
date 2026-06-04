@@ -71,6 +71,10 @@
         pattern = "(g/[0-9]+)";
         command = "/nix/store/z86032kgdx2m41l5in2by95805r4pa7q-open-gerrit-id/bin/open-gerrit-id {match}";
       }
+      {
+        pattern = "INTEROP-([0-9]+)";
+        command = "open 'https://instructure.atlassian.net/browse/INTEROP-{match}'";
+      }
     ];
   };
 }
