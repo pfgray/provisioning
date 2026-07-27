@@ -10,6 +10,7 @@
     ./tmux
     ./video-tools
     ./overlays.nix
+    ./frp
 
     # Language tools (have their own enable flags)
     ./langs/nix.nix
