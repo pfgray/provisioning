@@ -70,15 +70,6 @@ let
     };
   };
 
-  copilot-chat = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-    mktplcRef = {
-      name = "copilot-chat";
-      publisher = "GitHub";
-      version = "0.27.0";
-      sha256 = "sha256-i7KKW+aM8P1nrgnLZssgAlKm1kaQyeh285EnoN9Bwps=";
-    };
-  };
-
   vscode-custom = import ./custom-vscode.nix { inherit pkgs; };
   pico8-ls = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
@@ -122,8 +113,6 @@ in
           waderyan.gitblame
           # mhutchie.git-graph
           donjayamanne.githistory
-          github.copilot
-          copilot-chat
           devcontainers
           ms-vscode-remote.remote-ssh
           cline

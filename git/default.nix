@@ -2,9 +2,11 @@
 
 let
   git-checkout = pkgs.writeShellScriptBin "git-checkout" ''
+    export PATH="${pkgs.lib.makeBinPath [ pkgs.gnused pkgs.gnugrep pkgs.gawk pkgs.coreutils pkgs.fzf pkgs.git ]}:$PATH"
     ${builtins.readFile ./checkout/git-checkout}
   '';
   git-checkout-recent = pkgs.writeShellScriptBin "git-checkout-recent" ''
+    export PATH="${pkgs.lib.makeBinPath [ pkgs.gnused pkgs.gnugrep pkgs.gawk pkgs.coreutils pkgs.fzf pkgs.git ]}:$PATH"
     ${builtins.readFile ./checkout-recent/git-checkout-recent}
   '';
 in
@@ -23,6 +25,7 @@ in
   config = {
     home.packages = with pkgs; [
       (writeShellScriptBin "rubocop-commit" ''
+        export PATH="${pkgs.lib.makeBinPath [ pkgs.gnugrep pkgs.coreutils pkgs.git ]}:$PATH"
         ${builtins.readFile ./rubocop_commit.sh}
       '')
       git-checkout
@@ -56,20 +59,21 @@ in
         checkout-branch = "!${git-checkout}/bin/git-checkout";
 
         # list branches sorted by last modified
-        b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'";
+        b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | ${pkgs.gnused}/bin/sed -e 's-refs/heads/--'";
 
         # list aliases
-        la = "!git config -l | grep alias | cut -c 7-";
+        la = "!git config -l | ${pkgs.gnugrep}/bin/grep alias | ${pkgs.coreutils}/bin/cut -c 7-";
 
         hello = "!echo hello world";
 
         show-files = "diff-tree --no-commit-id --name-only -r";
-        rebase-until = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | fzf --ansi | sed 's/\\x1b\\[[0-9;]*m//g' | awk \"{print \\$1}\") && [ -n \"$commit\" ] && git rebase -i \"$commit\"~ --autosquash; }; f";
-        fixup = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | fzf --ansi --prompt=\"Select commit to fixup: \" | sed 's/\\x1b\\[[0-9;]*m//g' | awk \"{print \\$1}\") && [ -n \"$commit\" ] && git commit --fixup=\"$commit\"; }; f";
+        rebase-until = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | ${pkgs.fzf}/bin/fzf --ansi | ${pkgs.gnused}/bin/sed 's/\\x1b\\[[0-9;]*m//g' | ${pkgs.gawk}/bin/awk \"{print \\$1}\") && [ -n \"$commit\" ] && git rebase -i \"$commit\"~ --autosquash; }; f";
+        fixup = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | ${pkgs.fzf}/bin/fzf --ansi --prompt=\"Select commit to fixup: \" | ${pkgs.gnused}/bin/sed 's/\\x1b\\[[0-9;]*m//g' | ${pkgs.gawk}/bin/awk \"{print \\$1}\") && [ -n \"$commit\" ] && git commit --fixup=\"$commit\"; }; f";
         code = "!f() { local ref=\${1:-}; if [ -z \"$ref\" ]; then code $(git diff --name-only); else code $(git diff-tree --no-commit-id --name-only -r \"$ref\"); fi }; f";
         checkout-recent = "!${git-checkout-recent}/bin/git-checkout-recent";
-        delete-branches = "!f() { git branch | grep -v '^\\*' | sed 's/^[ ]*//g' | fzf --multi --prompt='Select branches to delete: ' | xargs -r git branch -d; }; f";
-        force-delete-branches = "!f() { git branch | grep -v '^\\*' | sed 's/^[ ]*//g' | fzf --multi --prompt='Select branches to FORCE delete: ' | xargs -r git branch -D; }; f";
+        delete-branches = "!f() { git branch | ${pkgs.gnugrep}/bin/grep -v '^\\*' | ${pkgs.gnused}/bin/sed 's/^[ ]*//g' | ${pkgs.fzf}/bin/fzf --multi --prompt='Select branches to delete: ' | ${pkgs.coreutils}/bin/xargs -r git branch -d; }; f";
+        force-delete-branches = "!f() { git branch | ${pkgs.gnugrep}/bin/grep -v '^\\*' | ${pkgs.gnused}/bin/sed 's/^[ ]*//g' | ${pkgs.fzf}/bin/fzf --multi --prompt='Select branches to FORCE delete: ' | ${pkgs.coreutils}/bin/xargs -r git branch -D; }; f";
+        edit-commit = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | ${pkgs.fzf}/bin/fzf --ansi | ${pkgs.gnused}/bin/sed 's/\\x1b\\[[0-9;]*m//g' | ${pkgs.gawk}/bin/awk \"{print \\$1}\") && [ -n \"$commit\" ] && GIT_SEQUENCE_EDITOR=\"${pkgs.gnused}/bin/sed -i 's/^pick $commit/edit $commit/'\" git rebase -i \"$commit\"~ --autosquash; }; f";
       };
     };
   };

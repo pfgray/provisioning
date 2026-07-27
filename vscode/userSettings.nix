@@ -48,4 +48,10 @@
   "extensions.autoCheckUpdates" = false;
   "extensions.autoUpdate" = false;
   "plantuml.previewAutoUpdate" = false;
+  "remote.SSH.logLevel" = "trace";
+  "remote.SSH.useExecServer" = false;
+  "remote.SSH.useLocalServer" = false;
+  "remote.SSH.remotePlatform" = {
+    "yaltt.paulgray.net" = "linux";
+  };
 }
