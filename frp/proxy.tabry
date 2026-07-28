@@ -1,0 +1,3 @@
+cmd proxy
+desc "Start an FRP tunnel to expose a local port at local.paulgray.net"
+flagarg p,port "Local port to expose (default: 3000)"
