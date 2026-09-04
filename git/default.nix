@@ -37,6 +37,10 @@ in
       userName = config.git.userName;
       userEmail = config.git.userEmail;
 
+      ignores = [
+        ".DS_Store"
+      ];
+
       aliases = {
         # one-line log
         l = "log --pretty=format:\"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]\" --decorate --date=short";
