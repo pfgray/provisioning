@@ -9,6 +9,8 @@ export default class RsyncSyncPlugin extends Plugin {
   syncManager: SyncManager;
   fileWatcher: FileWatcher;
   periodicPullInterval: number | null = null;
+  statusBarItem: HTMLElement | null = null;
+  statusUpdateInterval: number | null = null;
 
   async onload() {
     logger.info('Loading Rsync Sync plugin');
@@ -17,7 +19,11 @@ export default class RsyncSyncPlugin extends Plugin {
 
     // Initialize sync manager with vault path
     const vaultPath = (this.app.vault.adapter as any).basePath;
-    this.syncManager = new SyncManager(this.settings, vaultPath);
+    this.syncManager = new SyncManager(
+      this.settings,
+      vaultPath,
+      this.updateStatusBar.bind(this)
+    );
 
     // Initialize file watcher
     this.fileWatcher = new FileWatcher(
@@ -90,8 +96,14 @@ export default class RsyncSyncPlugin extends Plugin {
     });
 
     // Add status bar item
-    const statusBarItem = this.addStatusBarItem();
-    statusBarItem.setText('Rsync Sync: Ready');
+    this.statusBarItem = this.addStatusBarItem();
+    this.updateStatusBar();
+
+    // Update status bar every second to show elapsed time
+    this.statusUpdateInterval = window.setInterval(() => {
+      this.updateStatusBar();
+    }, 1000);
+    this.registerInterval(this.statusUpdateInterval);
 
     // Clean up stale locks when window gains focus (e.g., after wake from sleep)
     this.registerDomEvent(window, 'focus', () => {
@@ -110,6 +122,11 @@ export default class RsyncSyncPlugin extends Plugin {
     // Clear periodic pull interval
     if (this.periodicPullInterval) {
       window.clearInterval(this.periodicPullInterval);
+    }
+
+    // Clear status update interval
+    if (this.statusUpdateInterval) {
+      window.clearInterval(this.statusUpdateInterval);
     }
   }
 
@@ -134,6 +151,51 @@ export default class RsyncSyncPlugin extends Plugin {
     } catch (error) {
       logger.error('Initial sync failed:', error);
       new Notice(`Initial sync failed: ${(error as Error).message}`);
+    }
+  }
+
+  private updateStatusBar() {
+    if (!this.statusBarItem) {
+      return;
+    }
+
+    const state = this.syncManager.getState();
+
+    if (state.isInProgress) {
+      this.statusBarItem.setText('Rsync Sync: Syncing...');
+      return;
+    }
+
+    if (state.lastError) {
+      this.statusBarItem.setText('Rsync Sync: Error');
+      return;
+    }
+
+    if (state.lastSyncTime) {
+      const elapsed = Date.now() - state.lastSyncTime;
+      const timeStr = this.formatElapsedTime(elapsed);
+      this.statusBarItem.setText(`Rsync Sync: ${timeStr}`);
+    } else {
+      this.statusBarItem.setText('Rsync Sync: Ready');
+    }
+  }
+
+  private formatElapsedTime(ms: number): string {
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      return `${days}d ago`;
+    } else if (hours > 0) {
+      return `${hours}h ago`;
+    } else if (minutes > 0) {
+      return `${minutes}m ago`;
+    } else if (seconds > 30) {
+      return `${seconds}s ago`;
+    } else {
+      return 'Just now';
     }
   }
 

@@ -47,6 +47,7 @@ home-manager switch
 ```
 
 This will:
+
 - Install Obsidian and rclone
 - Create vault directory at `~/Documents/ObsidianVault` (macOS) or `~/obsidian-vault` (Linux)
 - Generate SSH key (only if it doesn't exist) or use your existing key
@@ -56,10 +57,12 @@ This will:
 ### 3. Configure Server
 
 **If using a new generated key:**
+
 - The deployment will print your SSH public key
 - Add it to your NixOS server configuration
 
 **If using your existing default key:**
+
 - Your server likely already has your public key
 - **If your key is password-protected:**
   - **macOS:** See [SSH_AGENT_SETUP.md](./SSH_AGENT_SETUP.md) for macOS Keychain setup
@@ -145,6 +148,7 @@ config.obsidian.sync = {
 ### Plugin Architecture
 
 The custom plugin is written in TypeScript and:
+
 - Monitors vault events (create, modify, delete, rename)
 - Shells out to rclone for syncing
 - Handles conflicts using configured strategy
@@ -154,6 +158,7 @@ The custom plugin is written in TypeScript and:
 ### Rclone Bisync
 
 Uses `rclone bisync` which provides:
+
 - True bidirectional synchronization
 - Built-in conflict resolution
 - Resilient operation (recovers from interruptions)
@@ -193,6 +198,7 @@ rclone bisync . obsidian-remote:/srv/obsidian-vaults/your-username \
 ### View Sync Logs
 
 In Obsidian:
+
 1. Open Developer Tools (Cmd+Opt+I on macOS)
 2. Go to Console tab
 3. Filter by `[Rsync Sync]`
@@ -211,7 +217,7 @@ The custom plugin uses `child_process` which isn't available on mobile. For mobi
 provisioning/obsidian/
 ├── default.nix              # Home-manager module
 ├── README.md                # This file
-└── plugin/                  # Custom plugin source
+└── rsync-sync-plugin/       # Custom plugin source
     ├── src/
     │   ├── main.ts
     │   ├── syncManager.ts
@@ -231,10 +237,12 @@ provisioning/obsidian/
 ## Vault Location
 
 **Default locations:**
+
 - **macOS**: `~/Documents/ObsidianVault`
 - **Linux**: `~/obsidian-vault`
 
 **Custom location:**
+
 ```nix
 config.obsidian.vaultPath = "${config.home.homeDirectory}/Notes/vault";
 ```
@@ -253,7 +261,7 @@ The directory will be created automatically on first run if it doesn't exist.
 To modify the plugin:
 
 ```bash
-cd ~/dev/hm/provisioning/obsidian/plugin
+cd ~/dev/hm/provisioning/obsidian/rsync-sync-plugin
 npm install
 npm run dev  # Watch mode
 # or
@@ -261,6 +269,7 @@ npm run build  # Production build
 ```
 
 After making changes:
+
 ```bash
 home-manager switch
 ```
@@ -276,7 +285,7 @@ home-manager switch
 
 ## Related Files
 
-- Plugin source: `provisioning/obsidian/plugin/`
+- Plugin source: `provisioning/obsidian/rsync-sync-plugin/`
 - Nix module: `provisioning/obsidian/default.nix`
 - Background sync: `provisioning/obsidian/background-sync.nix`
 - Home-manager config: `provisioning/home-common.nix`

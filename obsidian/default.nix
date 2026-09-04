@@ -3,7 +3,7 @@
 with lib;
 
 let
-  rsyncSyncPlugin = import ./plugin { inherit pkgs; };
+  rsyncSyncPlugin = import ./rsync-sync-plugin { inherit pkgs; };
 
   # Default vault path based on platform
   defaultVaultPath =
@@ -11,7 +11,8 @@ let
     then "${config.home.homeDirectory}/Documents/ObsidianVault"
     else "${config.home.homeDirectory}/obsidian-vault";
 
-in {
+in
+{
   imports = [
     ./background-sync.nix
   ];
@@ -96,7 +97,7 @@ in {
     home.packages = with pkgs; [ obsidian rclone ];
 
     # Create vault directory and .obsidian structure
-    home.activation.obsidianVault = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    home.activation.obsidianVault = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       VAULT="${config.obsidian.vaultPath}"
 
       if [ ! -d "$VAULT" ]; then
@@ -141,7 +142,7 @@ in {
         pullIntervalMinutes = config.obsidian.sync.pullIntervalMinutes;
         debounceSeconds = config.obsidian.sync.debounceSeconds;
         conflictStrategy = config.obsidian.sync.conflictStrategy;
-        excludePatterns = [".trash" ".git" ".obsidian/workspace*"];
+        excludePatterns = [ ".trash" ".git" ".obsidian/workspace*" ];
         syncOnStartup = true;
         syncOnFileChange = true;
       };
@@ -149,7 +150,7 @@ in {
 
     # SSH key generation
     home.activation.obsidianSyncKey = mkIf config.obsidian.sync.enable (
-      lib.hm.dag.entryAfter ["writeBoundary"] ''
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         KEYPATH="${config.obsidian.sync.sshKeyPath}"
         if [ ! -f "$KEYPATH" ]; then
           $DRY_RUN_CMD ${pkgs.openssh}/bin/ssh-keygen \

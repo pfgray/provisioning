@@ -9,14 +9,17 @@ export class SyncManager {
   private executor: CommandExecutor;
   private conflictResolver: ConflictResolver;
   private state: SyncState;
+  private onStateChange?: () => void;
 
   constructor(
     private settings: SyncSettings,
-    private vaultPath: string
+    private vaultPath: string,
+    onStateChange?: () => void
   ) {
     this.executor = new CommandExecutor();
     this.conflictResolver = new ConflictResolver(settings);
     this.state = new SyncState();
+    this.onStateChange = onStateChange;
 
     // Clean up stale lock files from crashed syncs
     this.cleanupStaleLock();
@@ -82,6 +85,7 @@ export class SyncManager {
 
     try {
       this.state.startSync();
+      this.onStateChange?.();
       logger.info('Starting pull from remote');
 
       const command = this.buildBisyncCommand();
@@ -93,9 +97,11 @@ export class SyncManager {
 
       logger.info('Pull completed successfully');
       this.state.endSync();
+      this.onStateChange?.();
     } catch (error) {
       logger.error('Pull failed:', error);
       this.state.endSync(error as Error);
+      this.onStateChange?.();
       new Notice(`Sync failed: ${(error as Error).message}`);
       throw error;
     }
@@ -114,6 +120,7 @@ export class SyncManager {
 
     try {
       this.state.startSync();
+      this.onStateChange?.();
       logger.info(`Starting push of ${changedFiles.length} files`);
 
       // For bisync, we just run the sync command which handles both directions
@@ -126,9 +133,11 @@ export class SyncManager {
 
       logger.info('Push completed successfully');
       this.state.endSync();
+      this.onStateChange?.();
     } catch (error) {
       logger.error('Push failed:', error);
       this.state.endSync(error as Error);
+      this.onStateChange?.();
       new Notice(`Sync failed: ${(error as Error).message}`);
       throw error;
     }
@@ -147,6 +156,7 @@ export class SyncManager {
 
     try {
       this.state.startSync();
+      this.onStateChange?.();
       logger.info('Starting force resync (resetting baseline)');
 
       const command = this.buildBisyncCommand(true); // Force --resync flag
@@ -158,9 +168,11 @@ export class SyncManager {
 
       logger.info('Force resync completed successfully');
       this.state.endSync();
+      this.onStateChange?.();
     } catch (error) {
       logger.error('Force resync failed:', error);
       this.state.endSync(error as Error);
+      this.onStateChange?.();
       new Notice(`Force resync failed: ${(error as Error).message}`);
       throw error;
     }
