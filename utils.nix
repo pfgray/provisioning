@@ -36,6 +36,7 @@ in {
         bat
         gopass
         graphviz
+        plantuml
         to-mp3
 
         # kubectl
