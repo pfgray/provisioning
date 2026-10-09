@@ -72,6 +72,7 @@ in
 
         show-files = "diff-tree --no-commit-id --name-only -r";
         rebase-until = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | ${pkgs.fzf}/bin/fzf --ansi | ${pkgs.gnused}/bin/sed 's/\\x1b\\[[0-9;]*m//g' | ${pkgs.gawk}/bin/awk \"{print \\$1}\") && [ -n \"$commit\" ] && git rebase -i \"$commit\"~ --autosquash; }; f";
+        push-until = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | ${pkgs.fzf}/bin/fzf --ansi --prompt=\"Select commit to push: \" | ${pkgs.gnused}/bin/sed 's/\\x1b\\[[0-9;]*m//g' | ${pkgs.gawk}/bin/awk \"{print \\$1}\") && [ -n \"$commit\" ] && git push origin \"$commit\":refs/for/master; }; f";
         fixup = "!f() { limit=\${1:-15}; commit=$(git l --color=always -n \"$limit\" | ${pkgs.fzf}/bin/fzf --ansi --prompt=\"Select commit to fixup: \" | ${pkgs.gnused}/bin/sed 's/\\x1b\\[[0-9;]*m//g' | ${pkgs.gawk}/bin/awk \"{print \\$1}\") && [ -n \"$commit\" ] && git commit --fixup=\"$commit\"; }; f";
         code = "!f() { local ref=\${1:-}; if [ -z \"$ref\" ]; then code $(git diff --name-only); else code $(git diff-tree --no-commit-id --name-only -r \"$ref\"); fi }; f";
         checkout-recent = "!${git-checkout-recent}/bin/git-checkout-recent";
